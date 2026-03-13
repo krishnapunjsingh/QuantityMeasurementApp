@@ -1,4 +1,3 @@
-
 package com.apps.quantitymeasurement;
 
 import java.util.Objects;
@@ -94,5 +93,9 @@ public class Quantity<U extends IMeasurable> {
     @Override
     public String toString() {
         return value + " " + unit.getUnitName();
+    }
+    
+    public double getValue() {
+        return value;
     }
 }
