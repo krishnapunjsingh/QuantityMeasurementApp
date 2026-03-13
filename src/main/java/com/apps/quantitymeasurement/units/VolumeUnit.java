@@ -1,3 +1,4 @@
+
 package com.apps.quantitymeasurement.units;
 
 public enum VolumeUnit implements IMeasurable {
@@ -13,11 +14,6 @@ public enum VolumeUnit implements IMeasurable {
     }
 
     @Override
-    public double getConversionFactor() {
-        return conversionFactor;
-    }
-
-    @Override
     public double convertToBaseUnit(double value) {
         return value * conversionFactor;
     }
@@ -30,5 +26,15 @@ public enum VolumeUnit implements IMeasurable {
     @Override
     public String getUnitName() {
         return name();
+    }
+
+    @Override
+    public double getConversionFactor() {
+        return conversionFactor;
+    }
+
+    @Override
+    public boolean supportsArithmetic() {
+        return true;
     }
 }
