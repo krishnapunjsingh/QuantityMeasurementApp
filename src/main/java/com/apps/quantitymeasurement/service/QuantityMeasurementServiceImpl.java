@@ -68,8 +68,9 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
 
         setCommonFields(entity, input);
         entity.setOperation("COMPARE");
-        entity.setResultString(String.valueOf(result));
-        entity.setCreatedAt(LocalDateTime.now());
+        entity.setResultValue(result ? 1.0 : 0.0);
+        entity.setResultUnit("BOOLEAN");
+        
 
         return repository.save(entity);
     }
@@ -81,13 +82,13 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         QuantityMeasurementEntity entity = new QuantityMeasurementEntity();
 
         QuantityDTO from = input.getThisQuantityDTO();
-        QuantityDTO to = input.getThatQuantityDTO(); // target unit
+        QuantityDTO q2 = input.getThatQuantityDTO(); // target unit
         
-        if (to == null || to.getUnit() == null) {
+        if (q2 == null || q2.getUnit() == null) {
             throw new InvalidUnitException("Target unit is required");
         }
 
-        if (!from.getMeasurementType().equalsIgnoreCase(to.getMeasurementType())) {
+        if (!from.getMeasurementType().equalsIgnoreCase(q2.getMeasurementType())) {
             throw new MeasurementMismatchException("Measurement types must be same");
         }
 
@@ -95,7 +96,7 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         IMeasurable fromUnit = getUnit(from.getMeasurementType(), from.getUnit());
 
         // Target unit
-        IMeasurable toUnit = getUnit(to.getMeasurementType(), to.getUnit());
+        IMeasurable toUnit = getUnit(q2.getMeasurementType(), q2.getUnit());
 
         // Convert to base
         double baseValue = fromUnit.convertToBaseUnit(from.getValue());
@@ -109,9 +110,8 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         entity.setThisMeasurementType(from.getMeasurementType());
 
         entity.setResultValue(result);
-        entity.setResultUnit(to.getUnit());
+        entity.setResultUnit(q2.getUnit());
         entity.setOperation("CONVERT");
-        entity.setCreatedAt(LocalDateTime.now());
 
         return repository.save(entity);
     }
@@ -144,7 +144,7 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         entity.setResultValue(finalResult);
         entity.setResultUnit(q1.getUnit());
         entity.setOperation("ADD");
-        entity.setCreatedAt(LocalDateTime.now());
+        
 
         return repository.save(entity);
     }
@@ -177,7 +177,7 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         entity.setResultValue(finalResult);
         entity.setResultUnit(q1.getUnit());
         entity.setOperation("SUBTRACT");
-        entity.setCreatedAt(LocalDateTime.now());
+        
 
         return repository.save(entity);
     }
@@ -210,7 +210,7 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
         entity.setResultValue(result);
         entity.setResultUnit("RATIO"); // division ka unit
         entity.setOperation("DIVIDE");
-        entity.setCreatedAt(LocalDateTime.now());
+        
 
         return repository.save(entity);
     }
@@ -226,7 +226,7 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
 
     @Override
     public long getOperationCount(String operation) {
-        return repository.countByOperationAndErrorFalse(operation.toUpperCase());
+        return repository.countByOperation(operation.toUpperCase());
     }
 
     //common setter
@@ -246,4 +246,5 @@ public class QuantityMeasurementServiceImpl implements IQuantityMeasurementServi
             entity.setThatMeasurementType(q2.getMeasurementType());
         }
     }
+
 }

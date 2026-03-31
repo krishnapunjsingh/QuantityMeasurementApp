@@ -1,4 +1,3 @@
-
 package com.apps.quantitymeasurement;
 
 
@@ -29,7 +28,7 @@ public class QuantityMeasurementAppTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    // 🔥 ADD TEST
+    // ADD TEST
     @Test
     void testAddLength() {
 
@@ -64,7 +63,7 @@ public class QuantityMeasurementAppTest {
 
         QuantityMeasurementEntity result = service.compare(input);
 
-        assertEquals("true", result.getResultString());
+        assertEquals(1.0, result.getResultValue());
     }
 
     //  DIVIDE TEST
@@ -115,6 +114,6 @@ public class QuantityMeasurementAppTest {
 
         QuantityMeasurementEntity result = service.compare(input);
 
-        assertEquals("true", result.getResultString());
+        assertEquals(1.0, result.getResultValue());
     }
 }

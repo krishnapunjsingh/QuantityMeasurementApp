@@ -1,4 +1,3 @@
-
 package com.apps.quantitymeasurement.dto;
 
 public class QuantityDTO {

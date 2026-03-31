@@ -1,4 +1,3 @@
-
 package com.apps.quantitymeasurement.dto;
 
 import lombok.Data;
@@ -20,4 +19,4 @@ public class QuantityInputDTO {
 	public void setThatQuantityDTO(QuantityDTO thatQuantityDTO) {
 		this.thatQuantityDTO = thatQuantityDTO;
 	}
-}
+}  	
