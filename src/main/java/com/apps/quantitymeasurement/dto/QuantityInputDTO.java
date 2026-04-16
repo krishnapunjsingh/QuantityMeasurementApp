@@ -19,4 +19,4 @@ public class QuantityInputDTO {
 	public void setThatQuantityDTO(QuantityDTO thatQuantityDTO) {
 		this.thatQuantityDTO = thatQuantityDTO;
 	}
-}  	
+}

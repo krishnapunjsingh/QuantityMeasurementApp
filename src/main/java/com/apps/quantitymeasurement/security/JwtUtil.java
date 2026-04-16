@@ -1,4 +1,3 @@
-
 package com.apps.quantitymeasurement.security;
 
 import java.security.Key;
@@ -13,7 +12,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
-    private final String SECRET = "KrishnaSinghSecurityKeyKrishnaSinghSecurityKey";
+    private final String SECRET = "KrishnaPunjSinghSecurityKeyKrishnaPunjSinghSecurityKey";
 
     private Key getKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());

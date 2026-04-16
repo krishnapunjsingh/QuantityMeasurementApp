@@ -9,7 +9,7 @@ import com.apps.quantitymeasurement.service.*;
 import com.apps.quantitymeasurement.dto.*;
 import com.apps.quantitymeasurement.entity.*;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/quantities")
 public class QuantityMeasurementController {
